@@ -39,6 +39,12 @@ and [`julia-actions/cache`](https://github.com/julia-actions/cache) actions are
 optional. Without the former `runic-action` will use whatever julia version is
 installed in the runner by default.
 
+> [!IMPORTANT]
+> It is *highly recommended* to pin the Runic version to a full version number (e.g.
+> `major.minor.patch`) to avoid CI failures due to changes in Runic.jl because even
+> formatting bug fixes may result in formatting changes that would then fail the workflow.
+> See the documentation for the `version` input below.
+
 ### Inputs
 
 `runic-action` accepts the following inputs:
