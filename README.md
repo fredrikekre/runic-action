@@ -8,7 +8,8 @@ code formatter.
 Full (copy-pasteable) workflow file example:
 
 ```yml
-name: Runic
+---
+name: Check
 on:
   push:
     branches:
@@ -19,6 +20,7 @@ on:
   pull_request:
 jobs:
   runic:
+    name: Runic formatting
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
