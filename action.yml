@@ -1,6 +1,9 @@
 ---
 name: 'runic-action'
 description: 'Run the Runic.jl code formatter (https://github.com/fredrikekre/Runic.jl)'
+branding:
+  icon: "book"
+  color: "black"
 inputs:
   version:
     description: 'Runic.jl version number or commit hash'
