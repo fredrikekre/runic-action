@@ -4,7 +4,7 @@ description: 'Run the Runic.jl code formatter (https://github.com/fredrikekre/Ru
 inputs:
   version:
     description: 'Runic.jl version number or commit hash'
-    default: "master"
+    default: "1"
 runs:
   using: "composite"
   steps:

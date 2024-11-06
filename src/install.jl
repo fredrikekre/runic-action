@@ -17,7 +17,7 @@ function main()
         version_kwarg = (rev = input_version,)
     end
     # Install Runic
-    Pkg.add(; url = "https://github.com/fredrikekre/Runic.jl", version_kwarg...)
+    Pkg.add(; name = "Runic", uuid = "62bfec6d-59d7-401d-8490-b29ee721c001", version_kwarg...)
     return 0
 end
 
