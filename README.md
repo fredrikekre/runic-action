@@ -42,10 +42,17 @@ optional. Without the former `runic-action` will use whatever julia version is
 installed in the runner by default.
 
 > [!IMPORTANT]
-> It is *highly recommended* to pin the Runic version to a full version number (e.g.
-> `major.minor.patch`) to avoid CI failures due to changes in Runic.jl because even
-> formatting bug fixes may result in formatting changes that would then fail the workflow.
-> See the documentation for the `version` input below.
+> Please be aware of Runic's
+> [version policy](https://github.com/fredrikekre/Runic.jl?tab=readme-ov-file#version-policy)
+> when configuring the version. Pinning to a major release (as above with `version: '1'`)
+> may cause occasional CI failures whenever there is a new minor release of Runic that
+> happens to impact your code base. When this happens you simply have to i) re-run Runic on
+> the new version, ii) commit the result, and iii) add the commit to
+> [the ignore list](https://github.com/fredrikekre/Runic.jl?tab=readme-ov-file#ignore-formatting-commits-in-git-blame).
+> This is still recommended since minor releases should be relatively rare, and if you use
+> Runic you presumably want these minor bugfixes to be applied to your code base. The
+> alternative is to pin to a minor (or patch) version and manually upgrade to new minor
+> versions.
 
 ### Inputs
 
@@ -55,12 +62,7 @@ installed in the runner by default.
 - uses: fredrikekre/runic-action@v1
   with:
     # Runic.jl version number or git revision (commit, tag, branch).
-    #
-    # It is __highly recommended__ to pin this version to a full version number (e.g.
-    # `major.minor.patch`) to avoid CI failures due to changes in Runic.jl since even
-    # formatting bug fixes may result in formatting changes that would then fail the
-    # workflow.
-    #
+    # Please see the note above about Runic's version policy.
     # By default runic-action@v1 uses the latest release in the v1 release series.
     version: '1'
 ```
