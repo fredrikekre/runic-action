@@ -4,7 +4,10 @@ using Pkg
 
 function main()
     # Parse the version number/commit id from the input
-    input_version = get(ENV, "INPUT_RUNIC_VERSION", "master")
+    input_version = get(ENV, "INPUT_RUNIC_VERSION", "1")
+    if isempty(input_version)
+        input_version = "1"
+    end
     # Note: tryparse(VersionNumber, input_version) would be nice but:
     # ```
     # julia> tryparse(VersionNumber, "500ba0988fbbd6632a0b00a78695cc4ae1ad5af7")

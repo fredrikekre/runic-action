@@ -10,8 +10,11 @@ on:
   pull_request:
 jobs:
   runic:
-    name: Runic formatting
+    name: Runic formatting (Runic@${{ matrix.runic-version }})
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        runic-version: ['1', '1.0', '1.0.1', 'master', '']
     steps:
       - uses: actions/checkout@v4
       # - uses: julia-actions/setup-julia@v2
@@ -19,3 +22,5 @@ jobs:
       #     version: '1.11'
       - uses: julia-actions/cache@v2
       - uses: ./
+        with:
+          version: ${{ matrix.runic-version }}
