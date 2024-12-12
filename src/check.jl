@@ -10,7 +10,7 @@ function main()
         return 0
     end
     # Set up Runic argument vector
-    argv = prepend!(julia_files, ["--check", "--diff"])
+    argv = prepend!(julia_files, ["--check", "--diff", "--verbose"])
     # Run Runic.main
     rc = Runic.main(argv)
     return rc
