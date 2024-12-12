@@ -1,6 +1,6 @@
 ---
 name: 'runic-action'
-description: 'Run the Runic.jl code formatter (https://github.com/fredrikekre/Runic.jl)'
+description: 'Run the Runic.jl code formatter on Julia files'
 branding:
   icon: "book"
   color: "black"
