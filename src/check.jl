@@ -4,7 +4,8 @@ using Runic
 
 function main()
     # Find all *.jl files in the repo
-    julia_files = readlines(`git ls-files -- '*.jl'`)
+    ls_files_cmd = Cmd(["git"; "ls-files"; "--"; "*.jl"; [":!:$exclude" for exclude in ARGS]])
+    julia_files = readlines(ls_files_cmd)
     if isempty(julia_files)
         println("Runic action: No files with `.jl` extension found in repo. Exiting.")
         return 0
