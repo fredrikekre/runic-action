@@ -20,10 +20,10 @@ runs:
     - name: Install Runic
       shell: bash
       run: |
-        julia --color=yes --project=@runic "${GITHUB_ACTION_PATH}/src/install.jl" ${{ inputs.exclude }}
+        julia --color=yes --project=@runic "${GITHUB_ACTION_PATH}/src/install.jl"
       env:
         INPUT_RUNIC_VERSION: ${{ inputs.version }}
     - name: Run Runic
       shell: bash
       run: |
-        julia --color=yes --project=@runic "${GITHUB_ACTION_PATH}/src/check.jl"
+        julia --color=yes --project=@runic "${GITHUB_ACTION_PATH}/src/check.jl" ${{ inputs.exclude }}
