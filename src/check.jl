@@ -9,10 +9,13 @@ function main()
         println("Runic action: No files with `.jl` extension found in repo. Exiting.")
         return 0
     end
-    # Set up Runic argument vector
-    argv = prepend!(julia_files, ["--check", "--diff", "--verbose"])
     # Run Runic.main
-    rc = Runic.main(argv)
+    rc = Runic.main(append!(["--check", "--diff", "--verbose"], julia_files))
+    # Format files, and leave the the repo dirty, if requested
+    if rc != 0 && get(ENV, "INPUT_RUNIC_FORMAT_FILES", "false") == "true"
+        rc2 = Runic.main(append!(["--inplace"], julia_files))
+        rc = max(rc, rc2)
+    end
     return rc
 end
 

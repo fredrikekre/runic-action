@@ -54,6 +54,55 @@ installed in the runner by default.
 > alternative is to pin to a minor (or patch) version and manually upgrade to new minor
 > versions.
 
+### Posting format diff as GitHub review comments
+
+By passing `format_files: true` to the action and combining with e.g.
+[reviewdog/action-suggester](https://github.com/reviewdog/action-suggester) a format diff
+will be posted as GitHub review comments. Note that in order for the job to exit with
+appropriate error you need to also configure `continue-on-error` for the runic job, and set
+the `fail_level` (or similar for any other follow up action you are using) as in the example
+below.
+
+```yml
+---
+name: Check
+on:
+  push:
+    branches:
+      - 'master'
+      - 'release-'
+    tags:
+      - '*'
+  pull_request:
+jobs:
+  runic:
+    name: Runic formatting
+    runs-on: ubuntu-latest
+    # Permissions needed for reviewdog/action-suggester to post comments
+    permissions:
+      contents: read
+      checks: write
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      # - uses: julia-actions/setup-julia@v2
+      #   with:
+      #     version: '1.11'
+      # - uses: julia-actions/cache@v2
+      - uses: fredrikekre/runic-action@v1
+        with:
+          version: '1'
+          format_files: true
+        # Fail on next step instead
+        continue-on-error: ${{ github.event_name == 'pull_request' }}
+      - uses: reviewdog/action-suggester@v1
+        if: github.event_name == 'pull_request'
+        with:
+          tool_name: Runic
+          fail_level: warning
+```
+
 ### Inputs
 
 `runic-action` accepts the following inputs:
@@ -65,4 +114,7 @@ installed in the runner by default.
     # Please see the note above about Runic's version policy.
     # By default runic-action@v1 uses the latest release in the v1 release series.
     version: '1'
+    # When `true`, format the files and leave the repository dirty (in addition to running
+    # the usual check). Note that the exit code of the step is still the exit code of check.
+    format_files: false
 ```

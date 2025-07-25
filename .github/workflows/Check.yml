@@ -24,3 +24,15 @@ jobs:
       - uses: ./
         with:
           version: ${{ matrix.runic-version }}
+  runic-format-files:
+    name: Runic formatting suggestions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/cache@v2
+      - run: echo "1+1" >> src/check.jl && grep -q "1+1" src/check.jl
+      - uses: ./
+        with:
+          format_files: true
+        continue-on-error: true
+      - run: grep -q "1 + 1" src/check.jl

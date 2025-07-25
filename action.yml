@@ -8,6 +8,9 @@ inputs:
   version:
     description: 'Runic.jl version number or commit hash'
     default: "1"
+  format_files:
+    description: 'Whether to format files or not (in addition to checking)'
+    default: "false"
 runs:
   using: "composite"
   steps:
@@ -24,3 +27,5 @@ runs:
       shell: bash
       run: |
         julia --color=yes --project=@runic "${GITHUB_ACTION_PATH}/src/check.jl"
+      env:
+        INPUT_RUNIC_FORMAT_FILES: ${{ inputs.format_files }}
