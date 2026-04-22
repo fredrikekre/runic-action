@@ -114,6 +114,12 @@ jobs:
     # Please see the note above about Runic's version policy.
     # By default runic-action@v1 uses the latest release in the v1 release series.
     version: '1'
+    # Comma-separated list of file extensions to format.
+    # Requires Runic >= 1.7 for markdown support.
+    extensions: 'jl'
+    # When `true`, format Julia code blocks in docstrings.
+    # Requires Runic >= 1.7.
+    docstrings: false
     # When `true`, format the files and leave the repository dirty (in addition to running
     # the usual check). Note that the exit code of the step is still the exit code of check.
     format_files: false

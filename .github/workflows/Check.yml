@@ -36,3 +36,37 @@ jobs:
           format_files: true
         continue-on-error: true
       - run: grep -q "1 + 1" src/check.jl
+  runic-extensions:
+    name: Runic markdown extensions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/cache@v2
+      - run: |
+          printf '```julia\n1+1\n```\n' > test.md
+          git add test.md
+          grep -q "1+1" test.md
+      - uses: ./
+        with:
+          version: 'master'
+          extensions: 'jl,md'
+          format_files: true
+        continue-on-error: true
+      - run: grep -q "1 + 1" test.md
+  runic-docstrings:
+    name: Runic docstrings
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/cache@v2
+      - run: |
+          printf '"""\n```julia\n1+1\n```\n"""\nfunction foo() end\n' > test.jl
+          git add test.jl
+          grep -q "1+1" test.jl
+      - uses: ./
+        with:
+          version: 'master'
+          docstrings: true
+          format_files: true
+        continue-on-error: true
+      - run: grep -q "1 + 1" test.jl

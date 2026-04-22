@@ -1,6 +1,6 @@
 ---
 name: 'runic-action'
-description: 'Run the Runic.jl code formatter on Julia files'
+description: 'Run the Runic.jl code formatter on Julia source files and embedded Julia blocks in Markdown files'
 branding:
   icon: "book"
   color: "black"
@@ -8,6 +8,12 @@ inputs:
   version:
     description: 'Runic.jl version number or commit hash'
     default: "1"
+  extensions:
+    description: 'Comma-separated list of file extensions to check (e.g. "jl", "jl,md") (requires Runic >= 1.7)'
+    default: "jl"
+  docstrings:
+    description: 'Whether to format Julia code blocks in docstrings (requires Runic >= 1.7)'
+    default: "false"
   format_files:
     description: 'Whether to format files or not (in addition to checking)'
     default: "false"
@@ -28,4 +34,6 @@ runs:
       run: |
         julia --color=yes --project=@runic "${GITHUB_ACTION_PATH}/src/check.jl"
       env:
+        INPUT_RUNIC_EXTENSIONS: ${{ inputs.extensions }}
+        INPUT_RUNIC_DOCSTRINGS: ${{ inputs.docstrings }}
         INPUT_RUNIC_FORMAT_FILES: ${{ inputs.format_files }}
