@@ -22,6 +22,12 @@ function main()
     if get(ENV, "INPUT_RUNIC_DOCSTRINGS", "false") == "true"
         push!(common_flags, "--docstrings")
     end
+    # Only pass --languages when set so that the Runic default is used otherwise (and so
+    # that Runic versions without the option keep working).
+    languages = strip(get(ENV, "INPUT_RUNIC_LANGUAGES", ""))
+    if !isempty(languages)
+        push!(common_flags, "--languages=" * languages)
+    end
     # Run Runic.main
     rc = Runic.main(append!(append!(["--check", "--diff", "--verbose"], common_flags), files))
     # Format files, and leave the the repo dirty, if requested

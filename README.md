@@ -120,6 +120,11 @@ jobs:
     # When `true`, format Julia code blocks in docstrings.
     # Requires Runic >= 1.7.
     docstrings: false
+    # Comma-separated list of fenced code block languages that are treated as Julia code
+    # in Markdown files and docstrings, e.g. 'julia,julia-repl,jldoctest,@example,@repl'
+    # to also format Documenter blocks. Leave empty to use Runic's default.
+    # Requires Runic >= 1.12.
+    languages: ''
     # When `true`, format the files and leave the repository dirty (in addition to running
     # the usual check). Note that the exit code of the step is still the exit code of check.
     format_files: false
