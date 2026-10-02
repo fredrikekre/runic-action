@@ -14,6 +14,9 @@ inputs:
   docstrings:
     description: 'Whether to format Julia code blocks in docstrings (requires Runic >= 1.7)'
     default: "false"
+  languages:
+    description: 'Comma-separated list of fenced code block languages to treat as Julia code in Markdown files and docstrings (e.g. "julia,julia-repl,jldoctest,@example"). Empty means the Runic default. (requires Runic >= 1.12)'
+    default: ""
   format_files:
     description: 'Whether to format files or not (in addition to checking)'
     default: "false"
@@ -36,4 +39,5 @@ runs:
       env:
         INPUT_RUNIC_EXTENSIONS: ${{ inputs.extensions }}
         INPUT_RUNIC_DOCSTRINGS: ${{ inputs.docstrings }}
+        INPUT_RUNIC_LANGUAGES: ${{ inputs.languages }}
         INPUT_RUNIC_FORMAT_FILES: ${{ inputs.format_files }}
